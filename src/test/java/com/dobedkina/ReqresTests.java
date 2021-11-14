@@ -67,7 +67,7 @@ public class ReqresTests {
     }
 
     @Test
-    void successfulregister() {
+    void successfulRegister() {
         Response response = given()
                 .contentType(JSON)
                 .body("{\n" +
