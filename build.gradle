@@ -1,0 +1,42 @@
+plugins {
+    id 'java-library'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+def selenideVersion = "5.24.0",
+    junitVersion = "5.7.2",
+    restAssuredVersion = "4.3.1"
+
+
+dependencies {
+    testImplementation(
+            "com.codeborne:selenide:$selenideVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion",
+            "org.hamcrest:hamcrest-all:1.3",
+            "org.assertj:assertj-core:3.19.0",
+            "org.junit.jupiter:junit-jupiter:$junitVersion")
+    testRuntimeOnly(
+            "org.slf4j:slf4j-simple:1.7.29",
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
